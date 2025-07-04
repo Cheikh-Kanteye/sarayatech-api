@@ -7,11 +7,14 @@ import { QuoteDto } from './dto/quote.dto';
 export class AppService {
   constructor(private readonly mailerService: MailerService) {}
 
-  sendContactMessage(contactDto: ContactDto) {
-    return this.mailerService.sendContactMessage(contactDto);
+  sendContactMessage(
+    contactDto: ContactDto,
+    isForSarayaTechUS: boolean = false,
+  ) {
+    return this.mailerService.sendContactMessage(contactDto, isForSarayaTechUS);
   }
 
-  sendQuoteRequest(quoteDto: QuoteDto) {
-    return this.mailerService.sendQuoteRequest(quoteDto);
+  sendQuoteRequest(quoteDto: QuoteDto, isForSarayaTechUS) {
+    return this.mailerService.sendQuoteRequest(quoteDto, isForSarayaTechUS);
   }
 }

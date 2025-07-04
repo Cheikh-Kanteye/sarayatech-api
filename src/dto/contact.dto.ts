@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString, IsEmail, Length } from 'class-validator';
 export class ContactDto {
   @IsNotEmpty()
   @IsString()
-  readonly fullName: string;
+  readonly name: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -12,7 +12,6 @@ export class ContactDto {
 
   @IsNotEmpty()
   @IsString()
-  @Length(10, 15)
   readonly subject: string;
 
   @IsNotEmpty()

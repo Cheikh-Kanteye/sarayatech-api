@@ -17,7 +17,7 @@ export enum Services {
 export class QuoteDto {
   @IsNotEmpty()
   @IsString()
-  readonly fullName: string;
+  readonly name: string;
 
   @IsNotEmpty()
   @IsEmail()
