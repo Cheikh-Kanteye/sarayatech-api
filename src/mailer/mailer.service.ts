@@ -14,7 +14,6 @@ export class MailerService {
   private pass: string;
   private url: string;
   private sarayaEmail: string;
-  private sarayaEmailUS: string;
 
   constructor(configService: ConfigService) {
     this.user = configService.get<string>('GMAIL_USER') || '';
@@ -42,7 +41,7 @@ export class MailerService {
     retries = 2,
   ): Promise<void> {
     const lang = isForSarayaTechUS ? 'en' : 'fr';
-    const fromEmail = isForSarayaTechUS ? this.sarayaEmailUS : this.sarayaEmail;
+    const fromEmail = this.sarayaEmail;
     for (let attempt = 1; attempt <= retries + 1; attempt++) {
       try {
         await this.transporter().sendMail({
@@ -86,7 +85,7 @@ export class MailerService {
           isForSarayaTechUS,
         ),
         this.sendMail(
-          isForSarayaTechUS ? this.sarayaEmailUS : this.sarayaEmail,
+          this.sarayaEmail,
           templates.contactNotification[lang],
           contactDto,
           isForSarayaTechUS,
