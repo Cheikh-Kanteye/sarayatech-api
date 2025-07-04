@@ -22,8 +22,6 @@ export class MailerService {
     this.url = configService.get<string>('APP_URL') || '';
     this.sarayaEmail =
       configService.get<string>('SARAYA_EMAIL') || 'info@saraya.tech';
-    this.sarayaEmailUS =
-      configService.get<string>('SARAYA_EMAIL_US') || 'info.us@saraya.tech';
   }
 
   private transporter() {
@@ -115,7 +113,7 @@ export class MailerService {
           isForSarayaTechUS,
         ),
         this.sendMail(
-          isForSarayaTechUS ? this.sarayaEmailUS : this.sarayaEmail,
+          this.sarayaEmail,
           templates.quoteRequest[lang],
           quoteDto,
           isForSarayaTechUS,
