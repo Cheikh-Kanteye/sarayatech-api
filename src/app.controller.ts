@@ -4,16 +4,19 @@ import {
   Post,
   Req,
   BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AppService } from './app.service';
 import { ContactDto } from './dto/contact.dto';
 import { QuoteDto } from './dto/quote.dto';
+import { MailerService } from './mailer/mailer.service';
 
 @Controller()
 export class AppController {
   private isForSarayaTechUS = false; // Indique si c'est pour SarayaTech US
   constructor(private readonly appService: AppService) {}
+  private readonly logger = new Logger(MailerService.name);
 
   // URLs autorisées
   private readonly allowedOrigins = [
@@ -32,6 +35,7 @@ export class AppController {
   sendMessage(@Body() contactDto: ContactDto, @Req() req: Request) {
     const origin = req.headers.origin;
     this.validateOrigin(origin);
+    this.logger.log(`Received request from origin: ${origin}`);
 
     if (origin && origin.includes('sarayatechus.netlify.app')) {
       this.isForSarayaTechUS = true; // Si l'origine est pour SarayaTech US
